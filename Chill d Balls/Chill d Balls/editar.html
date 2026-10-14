@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Producto - Chill d Balls</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <header class="encabezado py-3 text-center">
+        <div class="container d-flex flex-column align-items-center position-relative">
+            <div class="position-absolute end-0 top-0 mt-2 me-2">
+                <a href="tabla.html" class="btn btn-info btn-sm fw-bold text-white me-1">Tabla</a>
+                <a href="index.html" class="btn btn-outline-light btn-sm fw-bold">Catálogo</a>
+            </div>
+
+            <a href="index.html" class="mb-2">
+                <img src="img/logo.png" alt="Chill d Balls Logo" class="mi-logo">
+            </a>
+
+            <div class="text-center">
+                <h1 class="h2 m-0 fw-bold">CHILL D BALLS</h1>
+                <small>Mood 2k07</small>
+            </div>
+        </div>
+    </header>
+
+    <main class="container my-5 d-flex justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="caja-producto p-4 text-start">
+                
+                <h3 class="text-center mb-4 fw-bold">EDITAR ZAPATO #001</h3>
+                
+                <form action="tabla.html" method="get">
+
+                    <div class="mb-3">
+                        <label for="prod_id" class="form-label fw-bold">Código / ID:</label>
+                        <input type="text" class="form-control" id="prod_id" value="001" required readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="prod_nombre" class="form-label fw-bold">Nombre del Zapato:</label>
+                        <input type="text" class="form-control" id="prod_nombre" value="Zoo York Chunky Purple" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="prod_tallas" class="form-label fw-bold">Tallas Disponibles:</label>
+                        <input type="text" class="form-control" id="prod_tallas" value="38, 39, 40, 41" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="prod_precio" class="form-label fw-bold">Precio (COP):</label>
+                        <input type="text" class="form-control" id="prod_precio" value="$130.000 COP" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="prod_estado" class="form-label fw-bold">Estado de Inventario:</label>
+                        <select class="form-select" id="prod_estado" required>
+                            <option value="Disponible" selected>Disponible</option>
+                            <option value="Pocas Unidades">Pocas Unidades</option>
+                            <option value="Agotado">Agotado</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="prod_imagen" class="form-label fw-bold">Cambiar Imagen (Opcional):</label>
+                        <input type="file" class="form-control" id="prod_imagen">
+                    </div>
+
+                    <button type="submit" class="btn-warning btn w-100 py-2 mb-3 fw-bold">Actualizar Producto</button>
+
+                    <div class="text-center">
+                        <small><a href="tabla.html" class="text-muted text-decoration-none">← Cancelar y volver a la tabla</a></small>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="pie-pagina text-center py-2 mt-auto">
+        <p class="m-0">Editar Producto - Chill d Balls</p>
+    </footer>
+
+</body>
+</html>
