@@ -1,3 +1,4 @@
+/*  GENERAL  */
 body {
     background-image: url('../img/fondo.jpeg'); 
     background-size: cover;
@@ -5,8 +6,10 @@ body {
     background-attachment: fixed;
     font-family: Arial, sans-serif;
     color: #333;
+    overflow-x: hidden;
 }
 
+/*  ENCABEZADO  */
 .encabezado {
     background-color: rgba(81, 196, 214, 0.85);
     color: white;
@@ -21,6 +24,7 @@ body {
     margin: 0 auto;
 }
 
+/*  CATÁLOGO (títulos, tarjetas, botones)  */
 .titulo-seccion {
     background-color: rgba(255, 255, 255, 0.85);
     display: inline-block;
@@ -63,6 +67,7 @@ body {
     background-color: #aae025;
 }
 
+/*  PIE DE PÁGINA  */
 .pie-pagina {
     background-color: #51C4D6;
     color: white;
@@ -70,6 +75,7 @@ body {
     margin-top: 40px;
 }
 
+/*  MENÚ DE NAVEGACIÓN  */
 .menu-nav ul{
     display: flex;
     list-style: none;
@@ -91,4 +97,98 @@ body {
   background-color: #5e7288;
   color: #fff;               
   border-color: #85a1be;
+}
+
+/*  BOTONES DE SESIÓN (encabezado)  */
+.zona-usuario {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.zona-usuario .btn {
+    margin: 0;
+    white-space: nowrap;
+}
+
+@media (min-width: 992px) {
+    .zona-usuario {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 8px;
+    }
+}
+
+/*  MENÚ: AJUSTES PARA CELULAR  */
+.menu-nav ul {
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.menu-nav ul a {
+    white-space: nowrap;
+}
+
+@media (max-width: 576px) {
+    .menu-nav ul {
+        gap: 2px;
+    }
+    .menu-nav ul a {
+        padding: 6px 8px;
+        font-size: 0.85rem;
+    }
+}
+
+/*  CELULARES ANGOSTOS  */
+@media (max-width: 400px) {
+    .zona-usuario .btn {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+    .menu-nav ul a {
+        padding: 5px 5px;
+        font-size: 0.75rem;
+    }
+}
+
+/*  TABLA DE INVENTARIO (celular)  */
+@media (max-width: 576px) {
+    .tabla-inventario {
+        font-size: 0.78rem;
+    }
+    .tabla-inventario th,
+    .tabla-inventario td {
+        padding: 0.4rem 0.2rem;
+    }
+    .tabla-inventario .btn {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+    }
+    .tabla-inventario .badge {
+        white-space: normal;
+        font-size: 0.68rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .tabla-inventario th:first-child,
+    .tabla-inventario td:first-child {
+        display: none;
+    }
+    .tabla-inventario {
+        font-size: 0.72rem;
+    }
+}
+
+@media (max-width: 300px) {
+    .tabla-inventario {
+        font-size: 0.65rem;
+    }
+    .tabla-inventario .btn,
+    .tabla-inventario .badge {
+        font-size: 0.62rem;
+    }
 }

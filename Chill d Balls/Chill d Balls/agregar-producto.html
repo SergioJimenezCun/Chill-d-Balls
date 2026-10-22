@@ -5,18 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Producto - Chill d Balls</title>
 
-    <!-- Bootstrap CSS -->
+    <!-- ===== ESTILOS ===== -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
 
+    <!-- ===== ENCABEZADO ===== -->
     <header class="encabezado py-3 text-center">
         <div class="container d-flex flex-column align-items-center position-relative">
-            <div class="position-absolute end-0 top-0 mt-2 me-2">
-                <a href="tabla.html" class="btn btn-info btn-sm fw-bold text-white me-1">Tabla</a>
-                <a href="index.html" class="btn btn-outline-light btn-sm fw-bold">Catálogo</a>
-            </div>
+            <!-- Botones de sesión (js/sesion.js) -->
+            <div id="zonaUsuario" class="zona-usuario"></div>
 
             <a href="index.html" class="mb-2">
                 <img src="img/logo.png" alt="Chill d Balls Logo" class="mi-logo">
@@ -29,23 +28,28 @@
         </div>
     </header>
 
+    <!-- ===== CONTENIDO: formulario ===== -->
     <main class="container my-5 d-flex justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">
             <div class="caja-producto p-4 text-start">
                 
                 <h3 class="text-center mb-4 fw-bold">AGREGAR NUEVO ZAPATO</h3>
                 
-                <!-- Al enviar, regresa a la tabla -->
-                <form action="tabla.html" method="get">
+                <form id="formAgregar">
 
                     <div class="mb-3">
                         <label for="prod_id" class="form-label fw-bold">Código / ID:</label>
-                        <input type="text" class="form-control" id="prod_id" placeholder="Ej: 007" required>
+                        <input type="text" class="form-control" id="prod_id" placeholder="Ej: 07" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="prod_nombre" class="form-label fw-bold">Nombre del Zapato:</label>
                         <input type="text" class="form-control" id="prod_nombre" placeholder="Ej: DC Shoes Fat Lace" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="prod_descripcion" class="form-label fw-bold">Descripción:</label>
+                        <input type="text" class="form-control" id="prod_descripcion" placeholder="Ej: Zapatilla negra con cordones gordos" required>
                     </div>
 
                     <div class="mb-3">
@@ -55,7 +59,7 @@
 
                     <div class="mb-3">
                         <label for="prod_precio" class="form-label fw-bold">Precio (COP):</label>
-                        <input type="text" class="form-control" id="prod_precio" placeholder="Ej: $150.000 COP" required>
+                        <input type="number" class="form-control" id="prod_precio" placeholder="Ej: 150000" min="0" required>
                     </div>
 
                     <div class="mb-3">
@@ -70,7 +74,8 @@
 
                     <div class="mb-3">
                         <label for="prod_imagen" class="form-label fw-bold">Imagen (JPG/JPEG):</label>
-                        <input type="file" class="form-control" id="prod_imagen" required>
+                        <input type="file" class="form-control" id="prod_imagen" accept="image/*" required>
+                        <div class="form-text">Antes, copia la imagen dentro de la carpeta <strong>img/</strong> del proyecto.</div>
                     </div>
 
                     <button type="submit" class="btn-comprar w-100 py-2 mb-3">Guardar Producto</button>
@@ -84,9 +89,51 @@
         </div>
     </main>
 
+    <!-- ===== PIE DE PÁGINA ===== -->
     <footer class="pie-pagina text-center py-2 mt-auto">
         <p class="m-0">Agregar Producto - Chill d Balls</p>
     </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="js/productos.js"></script>
+    <script src="js/sesion.js"></script>
+    <script>
+        // ----- ACCESO -----
+        exigirSesion();
+
+        // ----- GUARDAR PRODUCTO NUEVO -----
+        var formulario = document.getElementById("formAgregar");
+
+        formulario.addEventListener("submit", function (evento) {
+            evento.preventDefault();
+
+            var productos = cargarProductos();
+            var id = document.getElementById("prod_id").value.trim();
+
+            for (var i = 0; i < productos.length; i++) {
+                if (productos[i].id === id) {
+                    alert("Ya existe un producto con el código " + id + ". Usa otro.");
+                    return;
+                }
+            }
+
+            var archivo = document.getElementById("prod_imagen").files[0];
+
+            var nuevo = {
+                id: id,
+                nombre: document.getElementById("prod_nombre").value.trim(),
+                descripcion: document.getElementById("prod_descripcion").value.trim(),
+                tallas: document.getElementById("prod_tallas").value.trim(),
+                precio: Number(document.getElementById("prod_precio").value),
+                estado: document.getElementById("prod_estado").value,
+                imagen: "img/" + archivo.name
+            };
+
+            productos.push(nuevo);
+            guardarProductos(productos);
+            window.location.href = "tabla.html";
+        });
+    </script>
 
 </body>
 </html>
