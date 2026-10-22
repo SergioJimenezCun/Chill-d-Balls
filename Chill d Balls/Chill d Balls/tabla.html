@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario - Chill d Balls</title>
+    
+    <!--  ESTILOS  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <!--  ENCABEZADO  -->
+    <header class="encabezado py-3 text-center">
+        <div class="container d-flex flex-column align-items-center position-relative">
+            <!-- Botones de sesión (js/sesion.js) -->
+            <div id="zonaUsuario" class="zona-usuario"></div>
+
+            <a href="index.html" class="mb-2">
+                <img src="img/logo.png" alt="Chill d Balls Logo" class="mi-logo">
+            </a>
+
+            <div class="text-center">
+                <h1 class="h2 m-0 fw-bold">CHILL D BALLS</h1>
+                <small>Mood 2k07</small>
+            </div>
+        </div>
+    </header>
+
+    <!--  CONTENIDO: tabla de inventario  -->
+    <main class="container my-5">
+        <div class="caja-producto p-2 p-sm-4">
+            
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+                <h2 class="fw-bold text-uppercase m-0" style="color: #1a5b66;">Inventario de Zapatos</h2>
+                <a href="agregar-producto.html" class="btn btn-success fw-bold text-white mt-2 mt-md-0">+ Agregar Producto</a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle text-center tabla-inventario">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Cod</th>
+                            <th>Nombre del producto</th>
+                            <th>Precio</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaCuerpo"></tbody>
+                </table>
+            </div>
+
+            <div class="text-center mt-3">
+                <a href="index.html" class="btn btn-sm btn-outline-secondary">← Volver al catálogo</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!--  PIE DE PÁGINA  -->
+    <footer class="pie-pagina text-center py-2 mt-auto">
+        <p class="m-0">Tabla de Inventario - Chill d Balls</p>
+    </footer>
+
+    <!--  MODAL: confirmar eliminación  -->
+    <div class="modal fade" id="modalEliminar" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content caja-producto">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title fw-bold">Eliminar producto</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p class="mb-1">¿Seguro que deseas eliminar</p>
+                    <p class="fw-bold fs-5" id="nombreEliminar"></p>
+                    <small class="text-muted">Esta acción no se puede deshacer.</small>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary fw-bold" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger fw-bold" id="btnConfirmarEliminar">Sí, eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  SCRIPTS  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/productos.js"></script>
+    <script src="js/sesion.js"></script>
+    <script>
+        //  ACCESO 
+        exigirSesion();
+
+        //  DIBUJAR LA TABLA 
+        var tablaCuerpo = document.getElementById("tablaCuerpo");
+
+        function crearCelda(texto) {
+            var td = document.createElement("td");
+            td.textContent = texto;
+            return td;
+        }
+
+        function dibujarTabla() {
+            var productos = cargarProductos();
+            tablaCuerpo.innerHTML = "";
+
+            if (productos.length === 0) {
+                tablaCuerpo.innerHTML = '<tr><td colspan="5">No hay productos. ¡Agrega uno!</td></tr>';
+                return;
+            }
+
+            for (var i = 0; i < productos.length; i++) {
+                crearFila(productos[i]);
+            }
+        }
+
+        function crearFila(producto) {
+            var tr = document.createElement("tr");
+
+            tr.appendChild(crearCelda(producto.id));
+            tr.appendChild(crearCelda(producto.nombre));
+            tr.appendChild(crearCelda(formatearPrecio(producto.precio)));
+
+            var tdEstado = document.createElement("td");
+            var badge = document.createElement("span");
+            badge.className = "badge " + claseEstado(producto.estado);
+            badge.textContent = producto.estado;
+            tdEstado.appendChild(badge);
+            tr.appendChild(tdEstado);
+
+            var tdAcciones = document.createElement("td");
+
+            var contenedorBotones = document.createElement("div");
+            contenedorBotones.className = "d-flex flex-column flex-md-row justify-content-center gap-1";
+
+            var editar = document.createElement("a");
+            editar.href = "editar-producto.html?id=" + encodeURIComponent(producto.id);
+            editar.className = "btn btn-warning btn-sm fw-bold";
+            editar.textContent = "Editar";
+
+            var eliminar = document.createElement("button");
+            eliminar.className = "btn btn-danger btn-sm fw-bold";
+            eliminar.textContent = "Eliminar";
+            eliminar.addEventListener("click", function () {
+                eliminarProducto(producto.id, producto.nombre);
+            });
+
+            contenedorBotones.appendChild(editar);
+            contenedorBotones.appendChild(eliminar);
+            tdAcciones.appendChild(contenedorBotones);
+            tr.appendChild(tdAcciones);
+
+            tablaCuerpo.appendChild(tr);
+        }
+
+        //  ELIMINAR PRODUCTO 
+        var modalEliminar = new bootstrap.Modal(document.getElementById("modalEliminar"));
+        var idPorEliminar = null;
+
+        function eliminarProducto(id, nombre) {
+            idPorEliminar = id;
+            document.getElementById("nombreEliminar").textContent = nombre;
+            modalEliminar.show();
+        }
+
+        document.getElementById("btnConfirmarEliminar").addEventListener("click", function () {
+            var productos = cargarProductos();
+            var restantes = productos.filter(function (p) {
+                return p.id !== idPorEliminar;
+            });
+            guardarProductos(restantes);
+            modalEliminar.hide();
+            dibujarTabla();
+        });
+
+        //  INICIO 
+        dibujarTabla();
+    </script>
+
+</body>
+</html>
