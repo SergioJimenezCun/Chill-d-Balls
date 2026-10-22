@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comprar - Chill d Balls</title>
 
-    <!--  ESTILOS  -->
+    <!-- ===== ESTILOS ===== -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-    <!--  ENCABEZADO  -->
+    <!-- ===== ENCABEZADO ===== -->
     <header class="encabezado py-3 text-center">
         <div class="container d-flex flex-column align-items-center position-relative">
 
@@ -29,7 +29,7 @@
         </div>
     </header>
 
-    <!--  CONTENIDO: compra  -->
+    <!-- ===== CONTENIDO: compra ===== -->
     <main class="container my-4 d-flex justify-content-center">
         <div class="col-12 col-md-10 col-lg-7">
             <div class="caja-producto p-3 p-sm-4 text-start" id="zonaCompra">
@@ -136,7 +136,7 @@
         </div>
     </main>
 
-    <!--  MODAL: compra confirmada  -->
+    <!-- ===== MODAL: compra confirmada ===== -->
     <div class="modal fade" id="modalExito" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content caja-producto">
@@ -160,20 +160,23 @@
         </div>
     </div>
 
-    <!--  PIE DE PÁGINA  -->
+    <!-- ===== PIE DE PÁGINA ===== -->
     <footer class="pie-pagina text-center py-2 mt-auto">
         <p class="m-0">Compra - Chill d Balls</p>
     </footer>
 
-    <!--  SCRIPTS  -->
+    <!-- ===== SCRIPTS ===== -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/productos.js"></script>
     <script src="js/sesion.js"></script>
     <script>
-        //  DATOS 
+        // ----- ACCESO -----
+        exigirSesion();
+
+        // ----- DATOS -----
         var COSTO_ENVIO = 10000;
 
-        //  BUSCAR EL PRODUCTO 
+        // ----- BUSCAR EL PRODUCTO -----
         var parametros = new URLSearchParams(window.location.search);
         var idCompra = parametros.get("id");
 
@@ -185,7 +188,7 @@
             }
         }
 
-        //  VALIDAR EL PRODUCTO 
+        // ----- VALIDAR EL PRODUCTO -----
         if (producto === null) {
             window.location.href = "index.html";
 
@@ -199,7 +202,7 @@
             iniciarCompra();
         }
 
-        //  FORMULARIO DE COMPRA 
+        // ----- FORMULARIO DE COMPRA -----
         function iniciarCompra() {
             var imagen = document.getElementById("compraImagen");
             imagen.src = producto.imagen;
@@ -256,7 +259,7 @@
             });
         }
 
-        //  CÁLCULO DE PRECIOS 
+        // ----- CÁLCULO DE PRECIOS -----
         function leerCantidad() {
             var cantidad = Number(document.getElementById("compra_cantidad").value);
             if (isNaN(cantidad) || cantidad < 1) {
