@@ -48,15 +48,23 @@
     <!-- CONTENIDO -->
     <main class="container my-5">
 
-        <section class="text-center mb-5">
-            <h2 class="titulo-seccion">Más que ropa, una identidad</h2>
+        
+<section class="text-center mb-5 p-4 rounded-4"
+         style="background-color: rgba(255, 255, 255, 0.92);">
 
-            <p class="mx-auto" style="max-width: 700px;">
-                Un espacio para explorar estilos diferentes, revivir
-                la esencia de los 2000 y encontrar prendas que hablen
-                de quién eres.
-            </p>
-        </section>
+    <h2 class="titulo-seccion mb-3">
+        Más que ropa, una identidad
+    </h2>
+
+    <p class="mx-auto mb-0"
+       style="max-width: 700px; color: #263b40; font-size: 1.05rem; line-height: 1.8;">
+        Un espacio para explorar estilos diferentes, revivir
+        la esencia de los 2000 y encontrar prendas que hablen
+        de quién eres.
+    </p>
+
+</section>
+
 
         <!-- QUIÉNES SOMOS -->
         <section id="quienes-somos" class="caja-producto p-4 p-md-5 mb-4">
