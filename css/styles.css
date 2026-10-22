@@ -11,11 +11,9 @@ body {
 
 /*  ENCABEZADO  */
 .encabezado {
-    background-color: rgba(81, 196, 214, 0.85);
+    background-color: #B8A4D9;
     color: white;
     border-bottom: 4px solid #C2FF36;
-}
-
 .mi-logo {
     width: 180px;
     height: auto;
